@@ -48,22 +48,20 @@ function mas(){//al activarse esta funcion lo primero q se hace es verificar que
             jugador.classList.add("jugador")
             contenedor.insertBefore(jugador, agregar)
             if(contenedor.childElementCount > 24){
-                agregar.remove()
+                agregar.style.display = "none"
             }
         }
         else{
             console.log("existen casillas vacias")
         }
-        console.log(contenedor.childElementCount)
+        //console.log(contenedor.childElementCount)
 }
 }
 mas()
 
 function lista(){ //al clickear enviar se hacen invisibles todas las casillas y por detras se crean una lista donde se agregan todos los nombres y luego se sortean, tambien se chequea que no se repitan nombres y si hay inputs vacios no se agregan al sorteo
     enviar.onclick = () =>{
-        console.log("aca si")
         if(localStorage.getItem("turnosAJugar") > 0){
-            console.log("aca si 1")
             for(let i = 0; i < contenedor.childElementCount; i++){
                 let participanteNombres = participante.map(p => p.nombre)
                 if(participanteNombres.includes(contenedor.children[i].value)){
@@ -109,7 +107,7 @@ function lista(){ //al clickear enviar se hacen invisibles todas las casillas y 
                 jugadores.classList.add("invisible")
                 cards.classList.remove("invisible")
                 contenedorEleccion.classList.remove("invisible")
-                console.log(participante)
+                //console.log(participante)
                 while(0 < participante.length){
                     let seleccion = Math.floor(Math.random()* participante.length)
                     //console.log(seleccion)
@@ -167,7 +165,7 @@ function lista(){ //al clickear enviar se hacen invisibles todas las casillas y 
                 let tarjetas = document.querySelectorAll(".seleccionable")
                 tarjetas.forEach(function (tarjeta) { //por cada objeto que contenga la clase seleccionable se chequea cual es su id
                     nombreSeleccion.innerText = `${sorteo[0].nombre}`
-                    console.log(`esto es lo q te muestro, nombre: ${sorteo[0].nombre}`)
+                    //console.log(`esto es lo q te muestro, nombre: ${sorteo[0].nombre}`)
                     tarjeta.addEventListener("click", function (evento) {
                     const divClickeado = evento.currentTarget
                     const idSeleccion = divClickeado.id
@@ -181,10 +179,10 @@ function lista(){ //al clickear enviar se hacen invisibles todas las casillas y 
                         let mostrar = document.getElementById(`nombre${idSeleccion}`)
                         let mostrarNumero = document.getElementById(`numero${idSeleccion}`)
                         mostrar.innerText= `${sorteo[0].nombre}`
-                        console.log(sorteo[0])
+                        //console.log(sorteo[0])
                         sorteo.splice(0, 1)
                         nombreSeleccion.innerText = (sorteo[0]?.nombre || "-")
-                        console.log(numeros)
+                        //console.log(numeros)
                         let seleccionNumero = Math.floor(Math.random()* numeros.length)
                         mostrarNumero.innerText= `${numeros[seleccionNumero]}`
                         numeros.splice(seleccionNumero, 1)
@@ -238,9 +236,18 @@ function jugarNuevamente(){
         contenedorEleccion.classList.add("invisible")
         jugadores.classList.remove("invisible")
         nombreSeleccion.classList.remove("invisible")
-        for(let i = 0; i < contenedor.childElementCount - 1; i++){
-            contenedor.children[i].value = ``
+        //console.log(contenedor.childElementCount)
+        for(let i = contenedor.childElementCount - 2; i >= 0; i--){
+            //console.log(contenedor.children[i])
+            if(i < 2){
+                for(let i = 0; i < 2; i++)
+                contenedor.children[i].value = ``
+            }
+            else{
+                contenedor.children[i].remove("input")
+            }
         }
+        agregar.style.display = "block"
         lista()
     }
 }
