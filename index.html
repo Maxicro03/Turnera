@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./estilos/estilos.css">
+    <title>Sorteador</title>
+</head>
+<body>
+    <header>
+        <nav>
+                <div class="turnos" id="turnosJugar">
+                    <p>0</p>
+                </div>
+            <ul class="menu">
+                <a href="#"><li class="opciones">Ruleta</li></a>
+                <a href="#"><li class="opciones">Tarjetas</li></a>
+                <a href="#"><li class="opciones">Dado</li></a>
+            </ul>
+            <button class="carrito" id="finalizarCompra">
+                <i class="fa-solid fa-cart-shopping carro"></i>
+                <div class="conProductos" id="conArticulos">
+                    <p class="articulos" id="articulosCarrito">0</p>
+                </div>
+            </button>
+        </nav>
+    </header>
+    <main>
+        <div class="contenedorTarjetas" id="contenedorPrincipal">
+            <div id="jugadores" class="jugadorescls">
+                <div id="agregar" class="agregarcls">
+                    <input type="text" class="jugador">
+                    <input type="text" class="jugador">
+                    <button id="plus"><i class="fa-solid fa-plus"></i></button>
+                </div>
+                <input type="submit" name="enviar" id="enviar" class="cargar">
+            </div>
+            <div class="tarjeta invisible" id="tarjetas">
+            </div>
+            <div class="contenedorSeleccionador invisible" id="contenedorEleccion">
+                <p class="nombreSeleccion" id="nombreSeleccion"></p>
+                <div class = "juegoNuevo invisible" id = "jugarDeNuevo">
+                    <button class = "btnNuevoJuego" id = "btnNuevo"><i class="fa-solid fa-rotate-right"></i></button>
+                </div>
+            </div>
+            <div class="comprarTurnos" id="contenedorTurnos">
+                <div class="compra">
+                    <div class="turnosComprar uno" id="01">
+                        <p class="turnosTotal">1</p>
+                        <p>Turno</p>
+                    </div>
+                    <p class="precio">USD 1</p>
+                    <button class="agregarCarrito" id="01">Añadir al Carrito</button>
+                </div>
+                <div class="compra">
+                    <div class="turnosComprar cinco" id="05">
+                        <p class="turnosTotal">5</p>
+                        <p>Turnos</p>
+                    </div>
+                    <p class="precio">USD 5</p>
+                    <button class="agregarCarrito" id="05">Añadir al Carrito</button>
+                </div>
+                <div class="compra">
+                    <div class="turnosComprar diez" id="010">
+                        <p class="turnosTotal">10</p>
+                        <p>Turnos</p>
+                    </div>
+                    <p class="precio">USD 10</p>
+                    <button class="agregarCarrito" id="010">Añadir al Carrito</button>
+                </div>
+                <div class="compra">
+                    <div class="turnosComprar cien" id="0100">
+                        <p class="turnosTotal">100</p>
+                        <p>Turnos</p>
+                    </div>
+                    <p class="precio">USD 100</p>
+                    <button class="agregarCarrito" id="0100">Añadir al Carrito</button>
+                </div>
+                <div class="compra">
+                    <div class="turnosComprar personalizado" id="perso">
+                        <input type="number" name="turnosElegir" class="turnosElegir" id="turnosEleccion" maxlength="3">
+                        <p>Turnos</p>
+                    </div>
+                    <p class="precio" id="precioPersonalizado">USD</p>
+                    <button class="agregarCarrito" id="perso">Añadir al Carrito</button>
+                </div>
+            </div>  
+            <div id="ventanaFinalizarCompra" class="terminarCompra"> 
+                <div class="contenido" id="contenedorProductos">
+                    <div class="botonCerrar">
+                        <button onclick="cerrarVentanaPagar()" class="cerrar"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+                </div>
+            </div>         
+        </div>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
