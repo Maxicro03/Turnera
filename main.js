@@ -15,6 +15,11 @@ let setTurnos = document.getElementById("turnosJugar")
 let contenedorNuevoTurno = document.getElementById("contenedorEleccion")
 let btnTirarNuevo = document.getElementById("btnNuevo")
 let contenedorJuegoNuevo = document.getElementById("jugarDeNuevo")
+let btnReclamar = document.getElementById("btnRecompensa")
+let cuentaAtras = document.getElementById("contenedorRecompensa")
+const hoy= new Date().getTime()
+const milisegundosDia = (24 * 60 * 60 * 1000)
+let mañana = hoy + milisegundosDia
 let participante = []
 let sorteo = []
 let numeros = []
@@ -306,7 +311,7 @@ function enviarCarrito(){
                         if (cantidadCarrito.children[0].innerText === "0") {
                             cantidadCarrito.style.display = "block"
                         }
-                        let cantidadProductos = localStorage.length - 2
+                        let cantidadProductos = localStorage.length - 4
                         cantidadCarrito.children[0].innerText = cantidadProductos
                         localStorage.setItem("objetosCarrito", cantidadProductos)
                     }
@@ -324,7 +329,7 @@ function enviarCarrito(){
                     if (cantidadCarrito.children[0].innerText === "0") {
                         cantidadCarrito.style.display = "block"
                     }
-                    let cantidadProductos = localStorage.length - 2
+                    let cantidadProductos = localStorage.length - 4
                     cantidadCarrito.children[0].innerText = cantidadProductos
                     localStorage.setItem("objetosCarrito", cantidadProductos)
                 }
@@ -497,14 +502,14 @@ function eliminarProductoCarrito(){
           let restarCarrito = localStorage.getItem("objetosCarrito")
           localStorage.setItem("objetosCarrito", restarCarrito - 1)
           cantidadCarrito.children[0].innerText = localStorage.getItem("objetosCarrito")
-          console.log(productos)
+          //console.log(productos)
           if(localStorage.getItem("objetosCarrito") <= 0){
             cantidadCarrito.style.display = "none"
           }
           let buscarPosicion = productos.find((producto) => producto.cantidad === eliminarTexto)
           let reconocerPosicion =  productos.indexOf(buscarPosicion)
           productos.splice(reconocerPosicion, 1)
-          console.log(productos)
+          //console.log(productos)
           let borrarContenedor = document.getElementById(`${eliminarTexto}`)
           borrarContenedor.remove("div")
           let actualizarTotal = document.querySelectorAll(".contenedorUSD")
@@ -572,6 +577,52 @@ function cerrarVentanaPagar() {
     productos = []
   }
 
+function recompensaDiaria() {
+    let fechaObjetivo = localStorage.getItem("recompensaDiaria")
+    const hoyFuncion = new Date().getTime()
+    //console.log(hoyFuncion)
+    const tiempoRestante = fechaObjetivo - hoyFuncion
+    //console.log(tiempoRestante)
+    if(tiempoRestante <= 0){
+        localStorage.setItem("tiempoCumplido", "true")
+        cuentaAtras.classList.add("invisible")
+        btnReclamar.classList.remove("invisible")
+    }
+    else{
+        let horas = Math.floor(tiempoRestante / 1000 / 60 / 60)
+        let minutos = Math.floor(tiempoRestante % (1000 * 60 * 60) / (1000 * 60))
+        let segundos = Math.round(tiempoRestante % (1000 * 60) / 1000)
+        //console.log(`${horas}:${minutos}:${segundos}`)
+        const agregarCeroHoras = String(horas).padStart(2, '0')
+        const agregarCeroMinutos = String(minutos).padStart(2, '0')
+        const agregarCeroSegundos = String(segundos).padStart(2, '0')
+        let textoRecompensa = document.getElementById("recompensaDiaria")
+        textoRecompensa.innerText = `${agregarCeroHoras}:${agregarCeroMinutos}:${agregarCeroSegundos}`
+    
+        setTimeout(recompensaDiaria, 1000)
+    }
+}
+recompensaDiaria()
+
+function afterRecompensa(){
+    btnReclamar.onclick = () =>{
+        if(localStorage.getItem("tiempoCumplido") == "true"){
+            let sumarTurnos = parseInt(localStorage.getItem("turnosAJugar")) + 1
+            localStorage.setItem("turnosAJugar", sumarTurnos)
+            setTurnos.innerText = `${localStorage.getItem("turnosAJugar")}`
+        }
+        const hoyRecargar = new Date().getTime()
+        const milisegundosDiaRecargar = (24 * 60 * 60 * 1000)
+        let mañanaRecargar = hoyRecargar + milisegundosDiaRecargar
+        localStorage.setItem("tiempoCumplido", "false")
+        localStorage.setItem("recompensaDiaria", mañanaRecargar)
+        recompensaDiaria()
+        cuentaAtras.classList.remove("invisible")
+        btnReclamar.classList.add("invisible")
+    }
+}
+
+afterRecompensa()
 
 //apenas se carga la pagina lo primero que se hace es revisar si algunos valores estan cargados en el local storage y en caso contrario crearlos
 document.addEventListener("DOMContentLoaded", function () {
@@ -582,10 +633,19 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem("turnosAJugar", 5)
         setTurnos.innerText = localStorage.getItem("turnosAJugar")
     }
-    localStorage.setItem("objetosCarrito", (localStorage.length -2))
+    localStorage.setItem("objetosCarrito", (localStorage.length - 4))
     if(localStorage.getItem("objetosCarrito") > 0){
         cantidadCarrito.children[0].innerText = localStorage.getItem("objetosCarrito")
         cantidadCarrito.style.display = "block"
     }
-
+    if(localStorage.getItem("recompensaDiaria")){
+        if(localStorage.getItem("tiempoCumplido") == "true"){
+            cuentaAtras.classList.add("invisible")
+            btnReclamar.classList.remove("invisible")
+        }
+    }
+    else{
+        localStorage.setItem("recompensaDiaria", mañana)
+        localStorage.setItem("tiempoCumplido", "false")
+    }
 })

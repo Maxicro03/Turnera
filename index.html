@@ -10,9 +10,15 @@
 <body>
     <header>
         <nav>
+            <div class="contenedorTurnosDiarios">
                 <div class="turnos" id="turnosJugar">
                     <p>0</p>
                 </div>
+                <div class="turnoRecompensa" id="contenedorRecompensa">
+                    <p class="textoRecompensa" id="recompensaDiaria"></p>
+                </div>
+                <button class="btnReclamar invisible" id="btnRecompensa"><i class="fa-solid fa-gift"></i> Reclamar</button>
+            </div>
             <ul class="menu">
                 <a href="#"><li class="opciones">Ruleta</li></a>
                 <a href="#"><li class="opciones">Tarjetas</li></a>
@@ -96,6 +102,7 @@
         </div>
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3.3.0/build/global/luxon.min.js"></script>
     <script src="main.js"></script>
 </body>
 </html>
