@@ -602,11 +602,10 @@ function recompensaDiaria() {
         setTimeout(recompensaDiaria, 1000)
     }
 }
-recompensaDiaria()
 
 function afterRecompensa(){
     btnReclamar.onclick = () =>{
-        if(localStorage.getItem("tiempoCumplido") == "true"){
+        if(localStorage.getItem("tiempoCumplido") === "true"){
             let sumarTurnos = parseInt(localStorage.getItem("turnosAJugar")) + 1
             localStorage.setItem("turnosAJugar", sumarTurnos)
             setTurnos.innerText = `${localStorage.getItem("turnosAJugar")}`
@@ -639,13 +638,15 @@ document.addEventListener("DOMContentLoaded", function () {
         cantidadCarrito.style.display = "block"
     }
     if(localStorage.getItem("recompensaDiaria")){
-        if(localStorage.getItem("tiempoCumplido") == "true"){
+        if(localStorage.getItem("tiempoCumplido")  === "true"){
             cuentaAtras.classList.add("invisible")
             btnReclamar.classList.remove("invisible")
+            recompensaDiaria()
         }
     }
     else{
         localStorage.setItem("recompensaDiaria", mañana)
         localStorage.setItem("tiempoCumplido", "false")
+        recompensaDiaria()
     }
 })
