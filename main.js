@@ -641,8 +641,8 @@ document.addEventListener("DOMContentLoaded", function () {
         if(localStorage.getItem("tiempoCumplido")  === "true"){
             cuentaAtras.classList.add("invisible")
             btnReclamar.classList.remove("invisible")
-            recompensaDiaria()
         }
+        recompensaDiaria()
     }
     else{
         localStorage.setItem("recompensaDiaria", mañana)
