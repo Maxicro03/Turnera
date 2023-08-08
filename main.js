@@ -257,6 +257,41 @@ function jugarNuevamente(){
     }
 }
 
+function crearProductos(){
+    let contenedorTurnosProducto = document.getElementById("contenedorTurnos")
+    fetch(`./turnos.json`)
+        .then((resp) => resp.json( ))
+        .then( (data) => {
+            data.forEach((productos) => {
+                if(productos.id !== "perso"){
+                    contenedorTurnosProducto.innerHTML +=  `<div class="compra">
+                                                                <div class="turnosComprar ${productos.class}" id="${productos.id}">
+                                                                    <p class="turnosTotal">${productos.turnos}</p>
+                                                                    <p>${productos.textoCantidad}</p>
+                                                                </div>
+                                                                <p class="precio">${productos.precio}</p>
+                                                                <button class="agregarCarrito" id="${productos.id}">Añadir al Carrito</button>
+                                                            </div>`
+                }
+                else{
+                    contenedorTurnosProducto.innerHTML +=  `<div class="compra">
+                                                                <div class="turnosComprar ${productos.class}" id="${productos.id}">
+                                                                    <input type="number" name="turnosElegir" class="turnosElegir" id="turnosEleccion" maxlength="3">
+                                                                    <p>${productos.textoCantidad}</p>
+                                                                </div>
+                                                                <p class="precio" id="precioPersonalizado">${productos.precio}</p>
+                                                                <button class="agregarCarrito" id="${productos.id}">Añadir al Carrito</button>
+                                                            </div>`
+                }
+
+            })
+            compraPersonalizada()
+            enviarCarrito()
+        })
+}
+
+crearProductos()
+
 
 //esta variable hace funcionar la compra personalizada que es el div que el numero de turnos esta vacio y te permite llenarlos
 function compraPersonalizada(){
@@ -274,7 +309,6 @@ function compraPersonalizada(){
     })
 }
 
-compraPersonalizada()
 
 //cuando se clickea el boton añadir al carrito se envian todos los datos correspondientes de ese producto al localStorage
 //identificando que producto es cada uno para no enviar informacion erronea
@@ -338,7 +372,6 @@ function enviarCarrito(){
     });
 }
 
-enviarCarrito()
 
 //al momento de darle click al carrito todos los valores que anteriormente fueron guardados en el localStorage se cargan en una ventana emergetne creando un div para cada uno
 //y dando los datos necesarios para cada parte

@@ -1,0 +1,37 @@
+[
+  {
+    "turnos": "1",
+    "class": "uno",
+    "id": "01",
+    "precio": "USD 1",
+    "textoCantidad": "Turno"
+  },
+  {
+    "turnos": "5",
+    "class": "cinco",
+    "id": "05",
+    "precio": "USD 5",
+    "textoCantidad": "Turnos"
+  },
+  {
+    "turnos": "10",
+    "class": "diez",
+    "id": "010",
+    "precio": "USD 10",
+    "textoCantidad": "Turnos"
+  },
+  {
+    "turnos": "100",
+    "class": "cien",
+    "id": "0100",
+    "precio": "USD 100",
+    "textoCantidad": "Turnos"
+  },
+  {
+    "turnos": "",
+    "class": "personalizado",
+    "id": "perso",
+    "precio": "USD",
+    "textoCantidad": "Turnos"
+  }  
+]
